@@ -27,7 +27,7 @@ This repo is the single leadership-facing view of readiness for the CEI Labs liv
 | 6 | Capacity/stress/failure testing | ❌ Not started | No load harness anywhere |
 | 7 | Security & abuse testing | ⚠ Partial | Real audit pass completed; no formal threat model or automated scanning |
 | 8 | Data, observability, backup/DR | ❌ Not started | No backup scripts, no dashboards |
-| 9 | Participant experience | ⚠ Partial | Quick-start + FAQ docs exist; no accessibility or device testing |
+| 9 | Participant experience | ⚠ Partial | Quick-start + FAQ docs exist; equipment/device-intake form built (not yet sent); no accessibility or device testing |
 | 10 | Event operations | ❌ Not started | Only a classroom facilitation guide exists, not an event runbook |
 | 11 | Hosting decision | ❌ Not started | No decision record |
 | 12–13 | Final-week / event-day checklists | ❌ Not started | — |
