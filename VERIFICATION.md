@@ -72,7 +72,7 @@ No P0 release gate is met. `TRACKER.md` is the current operational status source
 
 ## 2026-07-14 staggered-games feature addendum
 
-- **Engine implementation:** `feature/staggered-wargames` contains three persistent game records, immutable/idempotent starts, database row locking, exact challenge mappings, independent visibility, lock/close cutoffs, separate user/team standings, an administrator audit table, and CSV/JSON exports. The plugin is copied into the CTFd 3.8.2 image.
+- **Engine implementation:** the locally merged staggered-games work contains three persistent game records, immutable/idempotent starts, database row locking, exact challenge mappings, independent visibility, lock/close cutoffs, separate user/team standings, an administrator audit table, and CSV/JSON exports. The plugin is copied into the CTFd 3.8.2 image.
 - **Automated evidence:** 8 framework-free unit tests pass for transitions, start/lock boundary inclusion, pre-start exclusion, overlapping games, and deterministic ties. Python compilation and Git whitespace checks pass. This is unit/static evidence, not deployed integration evidence.
 - **Wargames evidence:** `game-stages.yml` declares Bandit 35, Krypton 8, and Natas 16. A standard-library validator passed against all three source builders and a freshly generated 59-challenge content tree.
 - **Known scoring scope:** per-game standings total mapped challenge values. Global awards and paid-hint deductions lack game attribution and are intentionally excluded pending an explicit policy/design.

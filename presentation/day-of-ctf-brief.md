@@ -30,9 +30,9 @@ instructors in the room) covers anything this talk doesn't.
    - Built on the well-known OverTheWire-style wargames — you're
      working through real, established learning tracks, not one-off
      puzzles.
-   - Three tracks: **Bandit** (Linux basics), **Krypton**
-     (cryptography), **Natas** (web security). Pick any track, any
-     order.
+   - Three games: **Bandit** (Linux basics), **Krypton**
+     (cryptography), **Natas** (web security). Staff release them in
+     stages; everyone begins each game at its Start Here challenge.
 
 3. **How it runs — CTFd**
    - CTFd is the platform for the whole event: log in, browse
@@ -41,10 +41,10 @@ instructors in the room) covers anything this talk doesn't.
    - Everything today happens through your browser in CTFd. One tab,
      one login.
 
-4. **Your own private lab**
-   - Every participant gets their own isolated environment per
-     challenge — nothing you do affects anyone else, and nothing
-     anyone else does affects you.
+4. **Your assigned lab**
+   - CTFd launches the environment assigned to you for the active game.
+     Stay within your assigned targets; never probe another participant
+     or event infrastructure.
    - Click **Launch Environment** on a challenge in CTFd, wait a few
      seconds, get your connection info back.
 
@@ -59,17 +59,17 @@ instructors in the room) covers anything this talk doesn't.
      it'll tell you exactly what to do.
 
 6. **Stuck? Use hints.**
-   - Every challenge has up to 3 hint tiers — a nudge, a real
+   - Many challenges offer up to 3 hint tiers — a nudge, a real
      explanation, then a full walkthrough.
-   - Hints cost a few points but never block you from solving the
-     challenge or lock you out.
+   - Any point cost is shown before unlock. Hints never block you from
+     solving the challenge or lock you out.
 
-7. **Scoring & prizes**
-   - Points per flag, live leaderboard right in CTFd — you can watch
-     your rank move in real time.
-   - **Top 3 scores at the end of the event win.** That's it — highest
-     score, top 3, prizes. (Ties: earliest correct submission wins,
-     CTFd's standard tie-break.)
+7. **Scoring by game**
+   - Bandit, Krypton, and Natas each have their own administrator-started
+     clock and scoreboard.
+   - Rankings use points, then last scoring solve elapsed time from that
+     game's start, then name. Awards follow the rules announced before
+     play; do not promise a top-three structure until it is approved.
 
 8. **If something breaks**
    - Puzzle being hard isn't the same as something being broken — try
@@ -80,14 +80,14 @@ instructors in the room) covers anything this talk doesn't.
      that's what we're here for.
 
 9. **Let's go**
-   - Log in, pick a track, open "Start Here," and go.
-   - Scoreboard's live the whole time — good luck.
+   - Log in, wait for the announced game start, then open its Start Here
+     challenge.
+   - Follow that game's scoreboard and staff announcements — good luck.
 
 ## Notes for whoever presents
 
-- Say the "3 winners" line plainly and early enough that it doesn't
-  feel buried — it's the thing people will ask about if you don't say
-  it.
+- State only the award structure approved by the event lead. The current
+  deck deliberately says results are per game and awards will be announced.
 - Don't demo live SSH usage here even briefly; pointing at the Start
   Here challenge is the correct level of detail for this talk.
 - If asked live about WiFi/network/account details beyond what's on
