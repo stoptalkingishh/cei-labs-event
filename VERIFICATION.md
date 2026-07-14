@@ -33,7 +33,7 @@ Legend: **✅ Confirmed** (real evidence found) · **⚠ Partial** (some evidenc
 - Flag lifecycle testing: **⚠ Partial.** SSH/port reuse and live isolation tested; expiration/reset/full lifecycle not fully covered.
 - Tenant isolation: **⚠ Partial.** `cap_drop: ALL` + narrow `cap_add` implemented and live-verified. **Gaps, explicitly documented in-repo:** `no_new_privileges`/`pids_limit` not implemented (docker-py SDK limitation); `read_only` rootfs not enabled anywhere; outbound-blocking claims unverified outside a Docker Desktop/WSL2 test environment — needs re-testing on real Swarm hardware.
 - Privileged containers / host mounts: **⚠ Partial.** No `privileged: true` anywhere. But `docker.sock` is mounted into Traefik (read-only) and the orchestrator (read-write) — a real trust boundary that the tracker's P0 item ("removed unless justified") doesn't yet have a written justification for.
-- Idempotent/concurrency-safe lifecycle ops: **✖ Risk flagged.** A multi-worker race condition is documented (gunicorn `--workers 2` gives two independent in-memory stores); current mitigation is pinning to `--workers 1`, not a real fix. This is a concrete correctness risk under concurrent event load.
+- Idempotent/concurrency-safe lifecycle ops: **⚠ Reopened for deployed verification.** The shared SQLite reservation fixed the original create race, and later local fixes add lifecycle ownership, shared port allocation, dynamic-secret upserts, and rollback handling. The interrupted 10-persona run still found real failures before those later fixes; they require a fresh real-Swarm/CTFd run before closure. See the current `TRACKER.md` and Engine round-two findings.
 - Health/readiness checks: **✖ Contradicted.** No `healthcheck:` blocks exist in `stack.yml` at all.
 - Resource limits: **⚠ Partial.** Memory limits/reservations + restart policies on 5 services in `stack.yml`; no CPU limits at the stack level.
 - Worker recovery, quotas, dashboards, backups, centralized logs/metrics, time sync: **❌ Not started** — no backup scripts, no Prometheus/Grafana config, no dashboard code beyond stock CTFd admin UI.
@@ -42,7 +42,7 @@ Legend: **✅ Confirmed** (real evidence found) · **⚠ Partial** (some evidenc
 - Challenge inventory: **⚠ Partial.** `docs/{bandit,krypton,natas}/writeups.md` (790 lines, all 56 levels) plus `learning-objectives.md` and `instructor-cheatsheet.md` exist — strong content, but not structured as the formal inventory table the tracker asks for (owner, points, reset method per row).
 - Clean-account playthroughs: **⚠ Partial.** Full solution writeups imply internal playthroughs happened; no independent tester log recorded.
 - Difficulty/timing validated with real testers: **❌ Not started.**
-- Scoring rules/tie-break/export: **❌ Not started** — relies on stock CTFd behavior, undocumented.
+- Scoring rules/tie-break/export: **⚠ Implemented, deployment verification open.** The staggered-game feature defines independent clocks, deterministic ties, lock cutoffs, and CSV/JSON exports. Unit/static checks pass; deployed CTFd/MariaDB concurrency and reconciliation remain open.
 - Web Exploitation isolation: **⚠ Partial.** Attacker/target isolation implemented and live-verified for Natas. Full outbound-blocking claim unverified on real hardware (same caveat as §2).
 - Vulnerable services can't reach infra/internet/venue: **❌ Not verified on real hardware.**
 - Content review, image/secret scanning, offline docs, post-event feedback: **❌ Not started.**
@@ -53,8 +53,8 @@ Legend: **✅ Confirmed** (real evidence found) · **⚠ Partial** (some evidenc
 ## 5. Wireless access points
 **❌ Not started (deployment), planning only.** No AP vendor config anywhere. Docs specify SSID-to-VLAN mapping, mandatory WPA2/3-Personal, AP client isolation requirement, and a "Day-Of Smoke Test" procedure — a plan, not evidence of a survey, AP sizing, or load test. Tracker's own baseline statement ("wireless access points are not configured") is confirmed accurate.
 
-## 6–13. Load/stress testing, security testing beyond the audit pass, observability, backup/DR, participant experience, event ops, hosting decision, final-week/event-day checklists
-**❌ Not started, with one exception.** No load-test harness (no Locust/k6/JMeter), no soak/failure-injection scripts, no Prometheus/Grafana/alerting config, no backup/restore scripts or RPO/RTO docs, no incident-response/event runbook (the only "runbook" found, `CEI-Labs-Wargames/docs/facilitation-runbook.md`, is a classroom facilitation guide, not an event-ops runbook), no GO/NO-GO artifacts, no hosting/Platform One decision record.
+## 6–13. Load/stress testing, security, observability, recovery, participant experience, and event operations
+**⚠ Started, major release gates remain open.** Engine has a deterministic load harness, two adversarial/persona rounds, `btop` provisioning, and a timestamped resource collector. This repository now has a staggered-games administrator runbook and presentation brief. Still missing are a successful full-attendance rehearsal, soak/failure injection, centralized alerts, backup/restore proof, final network validation, and complete GO/NO-GO evidence.
 
 The exception: `CEI-Labs-Wargames/docs/participant-quickstart.md` and `docs/troubleshooting-faq.md` cover part of §9 (participant quick start). Accessibility review and help-desk identity-verification procedure are still missing.
 
@@ -68,4 +68,12 @@ A real, well-documented security review exists: `docs/security-audit-status.md` 
 
 ## Net effect on the tracker
 
-The tracker undersells three things (orchestration decision resolved, dynamic flags done, a real security-audit pass completed) and is accurate or slightly optimistic on everything else — no P0 release gate is met, the network/wireless sections are correctly flagged as unvalidated, and sections 6–13 are correctly at zero. `TRACKER.md` has been updated in place to reflect the items above, each tagged with this audit's date.
+No P0 release gate is met. `TRACKER.md` is the current operational status source; this document preserves the original audit plus dated addenda and corrections.
+
+## 2026-07-14 staggered-games feature addendum
+
+- **Engine implementation:** `feature/staggered-wargames` contains three persistent game records, immutable/idempotent starts, database row locking, exact challenge mappings, independent visibility, lock/close cutoffs, separate user/team standings, an administrator audit table, and CSV/JSON exports. The plugin is copied into the CTFd 3.8.2 image.
+- **Automated evidence:** 8 framework-free unit tests pass for transitions, start/lock boundary inclusion, pre-start exclusion, overlapping games, and deterministic ties. Python compilation and Git whitespace checks pass. This is unit/static evidence, not deployed integration evidence.
+- **Wargames evidence:** `game-stages.yml` declares Bandit 35, Krypton 8, and Natas 16. A standard-library validator passed against all three source builders and a freshly generated 59-challenge content tree.
+- **Known scoring scope:** per-game standings total mapped challenge values. Global awards and paid-hint deductions lack game attribution and are intentionally excluded pending an explicit policy/design.
+- **Still open before production:** build/deploy the image; test administrator CSRF/auth behavior; smoke-test participant visibility; run user and team modes; race simultaneous Starts against MariaDB; reconcile CSV/JSON against raw solves; restart/restore persistence; and execute the documented multi-participant stage-operation stress profile.

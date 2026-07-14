@@ -4,6 +4,9 @@ Simple task list for the admin team: what's done, what's in progress, and what's
 
 - **[TRACKER.md](TRACKER.md)** — the detailed engineering checklist (13 sections, technical evidence, risk register).
 - **[VERIFICATION.md](VERIFICATION.md)** — the proof behind that checklist (files/commits inspected).
+- **[STAGGERED-GAMES-PLAN.md](STAGGERED-GAMES-PLAN.md)** — approved behavior for independently starting Bandit, Krypton, and Natas.
+- **[STAGGERED-GAMES-RUNBOOK.md](STAGGERED-GAMES-RUNBOOK.md)** — administrator rehearsal and event-day controls.
+- **[PRESENTATION-BRIEF.md](PRESENTATION-BRIEF.md)** — source material and slide outline for the presentation team.
 
 You shouldn't need those two for day-to-day tracking — everything below is the plain-language version. If a task needs more detail, its section number matches `TRACKER.md`.
 
@@ -35,6 +38,7 @@ You shouldn't need those two for day-to-day tracking — everything below is the
 
 ### 3. CTF challenges/content
 - 🔶 Finish writing all challenges (56 levels written) — *stoptalkingishh*
+- 🔶 Add separate administrator-started Bandit/Krypton/Natas scoreboards — *stoptalkingishh* (implementation and unit checks complete on feature branches; deployment rehearsal remains)
 - ⬜ Have real test participants (not just staff) try the challenges
 - ⬜ Confirm scoring and tie-breaker rules work correctly
 - ⬜ Confirm practice targets can't reach the real internet or other teams
@@ -54,6 +58,7 @@ You shouldn't need those two for day-to-day tracking — everything below is the
 - 🔶 Re-run the 10-persona test after the concurrency fix — *stoptalkingishh* (the first attempt stopped at 4/10 complete and is recorded as failed/incomplete; all four completed testers found the same regression)
 - ⬜ Run a full-scale test with the real target number of participants
 - ⬜ Run an "all day" endurance test
+- ⬜ Stress staggered game start/lock/hide actions during participant solve and scoreboard bursts
 
 ### 7. Security
 - 🔶 Run a security review and fix what's found — *stoptalkingishh* (first pass done)
@@ -73,7 +78,7 @@ You shouldn't need those two for day-to-day tracking — everything below is the
 - ⬜ Review for accessibility (colors, screen readers, etc.)
 
 ### 10. Event-day operations
-- ⬜ Write a real event-day runbook (setup, monitoring, what to do if something breaks)
+- 🔶 Write a real event-day runbook (setup, monitoring, what to do if something breaks) — staggered game controls documented; full infrastructure/incident runbook remains
 - ⬜ Assign staff roles for the event
 - ⬜ Schedule and run a full dress rehearsal
 
