@@ -57,6 +57,14 @@ and cutoff times, raw solves, per-stage CSV/JSON exports, screenshots of hidden
 and visible scoreboards, and reconciliation totals. Future 10/20/40-user tests
 must include synchronized solve bursts around stage start and lock boundaries.
 
+The future load profile must cover 10 participants first, then planned
+attendance, then planned attendance plus 50 percent headroom. During each run,
+start Krypton while Bandit traffic continues; hide/show Bandit; lock Bandit
+during a solve burst; and start Natas while both scoreboards are being polled.
+Pass conditions are zero duplicate starts, immutable timestamps, zero cross-game
+solve leakage, zero accepted solves missing inside the scoring window, zero
+score changes after lock, and no sustained infrastructure saturation.
+
 ## Presentation notes
 
 Event slides should explain the staggered release visually, show that each

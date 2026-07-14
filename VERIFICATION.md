@@ -69,3 +69,11 @@ A real, well-documented security review exists: `docs/security-audit-status.md` 
 ## Net effect on the tracker
 
 The tracker undersells three things (orchestration decision resolved, dynamic flags done, a real security-audit pass completed) and is accurate or slightly optimistic on everything else — no P0 release gate is met, the network/wireless sections are correctly flagged as unvalidated, and sections 6–13 are correctly at zero. `TRACKER.md` has been updated in place to reflect the items above, each tagged with this audit's date.
+
+## 2026-07-14 staggered-games feature addendum
+
+- **Engine implementation:** `feature/staggered-wargames` contains three persistent game records, immutable/idempotent starts, database row locking, exact challenge mappings, independent visibility, lock/close cutoffs, separate user/team standings, an administrator audit table, and CSV/JSON exports. The plugin is copied into the CTFd 3.8.2 image.
+- **Automated evidence:** 8 framework-free unit tests pass for transitions, start/lock boundary inclusion, pre-start exclusion, overlapping games, and deterministic ties. Python compilation and Git whitespace checks pass. This is unit/static evidence, not deployed integration evidence.
+- **Wargames evidence:** `game-stages.yml` declares Bandit 35, Krypton 8, and Natas 16. A standard-library validator passed against all three source builders and a freshly generated 59-challenge content tree.
+- **Known scoring scope:** per-game standings total mapped challenge values. Global awards and paid-hint deductions lack game attribution and are intentionally excluded pending an explicit policy/design.
+- **Still open before production:** build/deploy the image; test administrator CSRF/auth behavior; smoke-test participant visibility; run user and team modes; race simultaneous Starts against MariaDB; reconcile CSV/JSON against raw solves; restart/restore persistence; and execute the documented multi-participant stage-operation stress profile.
