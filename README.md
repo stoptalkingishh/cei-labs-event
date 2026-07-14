@@ -26,8 +26,8 @@ You shouldn't need those two for day-to-day tracking — everything below is the
 ### 2. Lab system (the engine running the CTF)
 - ✅ Each participant gets their own isolated lab environment — *stoptalkingishh*
 - ✅ Unique secret flags generated automatically per team — *stoptalkingishh*
-- ✅ Fixed a bug where fast clicking could break lab creation — *stoptalkingishh*
-- 🔶 Make sure participants can't access each other's labs/data — *stoptalkingishh* (one open issue: participants can currently reach each other's networks over the internet — actively being fixed)
+- 🔶 Fix fast-click/concurrent lab creation and reset behavior — *stoptalkingishh* (the first race was fixed, but a 10-persona rehearsal found additional relaunch and port-allocation races; a local fix passes 20-way tests and still needs real-Swarm verification)
+- 🔶 Make sure participants can't access each other's labs/data — *stoptalkingishh* (one open issue: Swarm's shared routing-mesh path currently permits internet egress and cross-instance reachability)
 - ⬜ Set usage limits per participant (CPU, memory, time)
 - ⬜ Set up automatic health checks and alerts
 - ⬜ Set up backups for the lab system
@@ -51,6 +51,7 @@ You shouldn't need those two for day-to-day tracking — everything below is the
 
 ### 6. Load testing (can it handle everyone at once?)
 - 🔶 Build a tool to simulate many participants at once — *stoptalkingishh*
+- 🔶 Re-run the 10-persona test after the concurrency fix — *stoptalkingishh* (the first attempt stopped at 4/10 complete and is recorded as failed/incomplete; all four completed testers found the same regression)
 - ⬜ Run a full-scale test with the real target number of participants
 - ⬜ Run an "all day" endurance test
 
@@ -63,7 +64,7 @@ You shouldn't need those two for day-to-day tracking — everything below is the
 ### 8. Backups & monitoring
 - ⬜ Decide what data needs backing up
 - ⬜ Set up backups and test restoring from one
-- ⬜ Set up dashboards/alerts so staff know if something breaks
+- 🔶 Add host resource monitoring — *stoptalkingishh* (`btop` provisioning and a timestamped host/Docker evidence collector are implemented locally; station deployment and centralized dashboards/alerts remain open)
 
 ### 9. Participant experience
 - 🔶 Write a one-page "getting started" guide for participants — *stoptalkingishh*
@@ -88,7 +89,7 @@ You shouldn't need those two for day-to-day tracking — everything below is the
 
 | Repo | Last commit | Date |
 |---|---|---|
-| cei-labs-engine | `81da136` | 2026-07-11 |
+| cei-labs-engine | `e7a723b` | 2026-07-13 |
 | cei-labs-net | `84df78a` | 2026-07-10 |
 | CEI-Labs-Wargames | `5937d6c` | 2026-07-11 |
 
