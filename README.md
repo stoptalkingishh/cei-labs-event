@@ -69,7 +69,7 @@ You shouldn't need those two for day-to-day tracking — everything below is the
 ### 8. Backups & monitoring
 - ⬜ Decide what data needs backing up
 - 🔶 Set up backups and test restoring from one — scratch restore passed; clean-station full-stack rehearsal remains open
-- 🔶 Add host resource monitoring — *stoptalkingishh* (`btop` and the timestamped host/Docker collector were deployed and exercised during the deterministic station run; centralized dashboards/alerts remain open)
+- 🔶 Add host resource monitoring — *stoptalkingishh* (`btop` and the timestamped host/Docker collector were deployed and exercised during the deterministic station run; Engine PR #2 adds Ansible-managed Fedora installation and equivalent firewalld/UFW rules with green CI, pending merge and an approved live Fedora role run; centralized dashboards/alerts remain open)
 
 ### 9. Participant experience
 - 🔶 Write a one-page "getting started" guide for participants — *stoptalkingishh*
