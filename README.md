@@ -29,11 +29,11 @@ You shouldn't need those two for day-to-day tracking — everything below is the
 ### 2. Lab system (the engine running the CTF)
 - ✅ Each participant gets their own isolated lab environment — *stoptalkingishh*
 - ✅ Unique secret flags generated automatically per team — *stoptalkingishh*
-- 🔶 Fix fast-click/concurrent lab creation and reset behavior — *stoptalkingishh* (the immutable candidate passed real-Swarm 1/5/10/20 cold waves plus 20-way same-key create/relaunch; the fresh 10-persona behavioral round remains pending)
-- 🔶 Make sure participants can't access each other's labs/data — *stoptalkingishh* (a trusted-gateway isolation candidate passes 95 Engine tests; native-Swarm egress/cross-team verification remains required)
+- ✅ Fix fast-click/concurrent lab creation and reset behavior — *stoptalkingishh* (real-Swarm 1/5/10/20 cold waves, 20-way same-key create/relaunch, and the final post-fix persona lifecycle retest passed without 5xx/non-JSON responses or residue)
+- ✅ Make sure participants can't access each other's labs/data — *stoptalkingishh* (native Swarm trusted-gateway gate passed 42/42: positive web/SSH/noVNC access, denied egress/cross-team/management access, route-abuse denial, and gateway runtime hardening)
 - ⬜ Set usage limits per participant (CPU, memory, time)
 - ⬜ Set up automatic health checks and alerts
-- 🔶 Set up backups for the lab system — *stoptalkingishh* (durable orchestrator state, protected backup, checksum/decryption verification, and RPO/RTO draft implemented; clean-station restore proof remains required)
+- 🔶 Set up backups for the lab system — *stoptalkingishh* (encrypted backup, checksum/decryption validation, corrupt-copy rejection, and isolated scratch restore of config/uploads/orchestrator state/MariaDB passed; a timed clean-station full-stack restore remains required)
 - ⬜ Build a simple staff dashboard (who's using what, right now)
 
 ### 3. CTF challenges/content
@@ -55,7 +55,7 @@ You shouldn't need those two for day-to-day tracking — everything below is the
 
 ### 6. Load testing (can it handle everyone at once?)
 - 🔶 Build a tool to simulate many participants at once — *stoptalkingishh*
-- 🔶 Re-run the 10-persona test after the concurrency fix — *stoptalkingishh* (the first attempt stopped at 4/10 complete and is recorded as failed/incomplete; all four completed testers found the same regression)
+- 🔶 Re-run the 10-persona test after the concurrency fix — *stoptalkingishh* (ten fresh-account personas completed in four-slot waves; launcher validation and CTFd dialect defects were fixed and the final retest passed, but this is not 10-concurrent acceptance and the station exposed only 2 of 59 challenges)
 - ⬜ Run a full-scale test with the real target number of participants
 - ⬜ Run an "all day" endurance test
 - ⬜ Stress staggered game start/lock/hide actions during participant solve and scoreboard bursts
@@ -68,7 +68,7 @@ You shouldn't need those two for day-to-day tracking — everything below is the
 
 ### 8. Backups & monitoring
 - ⬜ Decide what data needs backing up
-- ⬜ Set up backups and test restoring from one
+- 🔶 Set up backups and test restoring from one — scratch restore passed; clean-station full-stack rehearsal remains open
 - 🔶 Add host resource monitoring — *stoptalkingishh* (`btop` and the timestamped host/Docker collector were deployed and exercised during the deterministic station run; centralized dashboards/alerts remain open)
 
 ### 9. Participant experience
@@ -94,8 +94,8 @@ You shouldn't need those two for day-to-day tracking — everything below is the
 
 | Repo | Last commit | Date |
 |---|---|---|
-| cei-labs-engine | `e7a723b` | 2026-07-13 |
-| cei-labs-net | `84df78a` | 2026-07-10 |
-| CEI-Labs-Wargames | `5937d6c` | 2026-07-11 |
+| cei-labs-engine | `954243a` | 2026-07-15 |
+| cei-labs-net | `180c3f0` | 2026-07-14 |
+| CEI-Labs-Wargames | `83e9f52` | 2026-07-14 |
 
 All three are under active development — treat this as a snapshot, not a static record.

@@ -31,20 +31,20 @@ Legend: **✅ Confirmed** (real evidence found) · **⚠ Partial** (some evidenc
 - Clean install verified end-to-end: **❌ Not started** (install scripts exist; no record of a second-operator run).
 - Dynamic flag generation: **✅ Confirmed.** `docker/orchestrator/app/instance_types.py` uses `secrets.token_urlsafe()`/`secrets.choice()`; `docker/ctfd/plugins/instance-launcher/flags.py` implements per-team flags. Rolled out to Bandit, Krypton, and Natas in Wargames.
 - Flag lifecycle testing: **⚠ Partial.** SSH/port reuse and live isolation tested; expiration/reset/full lifecycle not fully covered.
-- Tenant isolation: **⚠ Partial.** `cap_drop: ALL` + narrow `cap_add` implemented and live-verified. **Gaps, explicitly documented in-repo:** `no_new_privileges`/`pids_limit` not implemented (docker-py SDK limitation); `read_only` rootfs not enabled anywhere; outbound-blocking claims unverified outside a Docker Desktop/WSL2 test environment — needs re-testing on real Swarm hardware.
+- Tenant isolation: **✅ Native-Swarm gate passed.** Participant-controlled targets/attackers remain on dedicated internal overlays; trusted gateways own exposure. The 42/42 station audit proved positive web/SSH/noVNC access, denied egress/cross-tenant/management reach, denied NET_ADMIN route abuse, and UID 65532/read-only/zero-capability/forwarding-disabled gateways. Repeat this gate on every frozen release.
 - Privileged containers / host mounts: **⚠ Partial.** No `privileged: true` anywhere. But `docker.sock` is mounted into Traefik (read-only) and the orchestrator (read-write) — a real trust boundary that the tracker's P0 item ("removed unless justified") doesn't yet have a written justification for.
-- Idempotent/concurrency-safe lifecycle ops: **⚠ Reopened for deployed verification.** The shared SQLite reservation fixed the original create race, and later local fixes add lifecycle ownership, shared port allocation, dynamic-secret upserts, and rollback handling. The interrupted 10-persona run still found real failures before those later fixes; they require a fresh real-Swarm/CTFd run before closure. See the current `TRACKER.md` and Engine round-two findings.
+- Idempotent/concurrency-safe lifecycle ops: **✅ Deployed verification passed.** Cold 1/5/10/20, 20 identical creates, and 20 parallel relaunches completed with zero 5xx/non-JSON responses and no residue. A fresh ten-persona diagnostic found launcher-validation and CTFd dialect issues; Engine `954243a` fixed both and the final live explicit-launch/status retest passed without 5xx.
 - Health/readiness checks: **✖ Contradicted.** No `healthcheck:` blocks exist in `stack.yml` at all.
 - Resource limits: **⚠ Partial.** Memory limits/reservations + restart policies on 5 services in `stack.yml`; no CPU limits at the stack level.
-- Worker recovery, quotas, dashboards, backups, centralized logs/metrics, time sync: **❌ Not started** — no backup scripts, no Prometheus/Grafana config, no dashboard code beyond stock CTFd admin UI.
+- Worker recovery, quotas, dashboards, centralized logs/metrics, and time sync: **⚠ Partial/open.** Engine now has btop plus retained host/Docker telemetry, encrypted backup/verification tooling, corrupt-copy rejection, and an isolated scratch restore. A clean-station full-stack restore, centralized dashboards/alerts, quotas, and failure-injection recovery remain open.
 
 ## 3. Wargames and CTF content
 - Challenge inventory: **⚠ Partial.** `docs/{bandit,krypton,natas}/writeups.md` (790 lines, all 56 levels) plus `learning-objectives.md` and `instructor-cheatsheet.md` exist — strong content, but not structured as the formal inventory table the tracker asks for (owner, points, reset method per row).
 - Clean-account playthroughs: **⚠ Partial.** Full solution writeups imply internal playthroughs happened; no independent tester log recorded.
 - Difficulty/timing validated with real testers: **❌ Not started.**
 - Scoring rules/tie-break/export: **⚠ Implemented, deployment verification open.** The staggered-game feature defines independent clocks, deterministic ties, lock cutoffs, and CSV/JSON exports. Unit/static checks pass; deployed CTFd/MariaDB concurrency and reconciliation remain open.
-- Web Exploitation isolation: **⚠ Partial.** Attacker/target isolation implemented and live-verified for Natas. Full outbound-blocking claim unverified on real hardware (same caveat as §2).
-- Vulnerable services can't reach infra/internet/venue: **❌ Not verified on real hardware.**
+- Web Exploitation isolation: **✅ Native-Swarm architecture gate passed.** The target/attacker range and trusted gateway passed positive access, egress denial, management/cross-tenant denial, and route-abuse checks. Full-catalog Natas load and reset testing remain open.
+- Vulnerable services can't reach infra/internet/venue: **⚠ Proven for the station gateway test topology; venue/router enforcement still requires hardware validation.**
 - Content review, image/secret scanning, offline docs, post-event feedback: **❌ Not started.**
 
 ## 4. Router, VLANs, DNS, DHCP, wired network
@@ -54,7 +54,7 @@ Legend: **✅ Confirmed** (real evidence found) · **⚠ Partial** (some evidenc
 **❌ Not started (deployment), planning only.** No AP vendor config anywhere. Docs specify SSID-to-VLAN mapping, mandatory WPA2/3-Personal, AP client isolation requirement, and a "Day-Of Smoke Test" procedure — a plan, not evidence of a survey, AP sizing, or load test. Tracker's own baseline statement ("wireless access points are not configured") is confirmed accurate.
 
 ## 6–13. Load/stress testing, security, observability, recovery, participant experience, and event operations
-**⚠ Started, major release gates remain open.** Engine has a deterministic load harness, two adversarial/persona rounds, `btop` provisioning, and a timestamped resource collector. This repository now has a staggered-games administrator runbook and presentation brief. Still missing are a successful full-attendance rehearsal, soak/failure injection, centralized alerts, backup/restore proof, final network validation, and complete GO/NO-GO evidence.
+**⚠ Started, major release gates remain open.** Engine has a deterministic load harness, three adversarial/persona checkpoints including a completed ten-persona diagnostic, `btop`, retained timestamped telemetry, encrypted backup verification, corruption rejection, and isolated scratch-restore proof. Still missing are the full 59-challenge station deployment, ten-concurrent/full-attendance rehearsal, soak/failure injection, centralized alerts, clean-station full-stack restore, final network validation, and complete GO/NO-GO evidence.
 
 The exception: `CEI-Labs-Wargames/docs/participant-quickstart.md` and `docs/troubleshooting-faq.md` cover part of §9 (participant quick start). Accessibility review and help-desk identity-verification procedure are still missing.
 
@@ -68,7 +68,11 @@ A real, well-documented security review exists: `docs/security-audit-status.md` 
 
 ## Net effect on the tracker
 
-No P0 release gate is met. `TRACKER.md` is the current operational status source; this document preserves the original audit plus dated addenda and corrections.
+Several Engine P0 correctness and isolation gates are now met, but the event
+is still NO-GO because catalog-scale capacity, clean deployment/restore,
+network hardware, DNS/TLS, staffing, and full rehearsal gates remain open.
+`TRACKER.md` is the current operational status source; this document preserves
+the original audit plus dated addenda and corrections.
 
 ## 2026-07-14 staggered-games feature addendum
 
