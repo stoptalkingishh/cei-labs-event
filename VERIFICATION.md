@@ -74,6 +74,13 @@ network hardware, DNS/TLS, staffing, and full rehearsal gates remain open.
 `TRACKER.md` is the current operational status source; this document preserves
 the original audit plus dated addenda and corrections.
 
+Publication follow-up (2026-07-15): all four repository branches were pushed
+and matched against their live remote heads. Wargames `Validate` passed at
+`581544f`. Engine `Validate`, Analyst image, and Kali noVNC image workflows
+passed at `2fe9338`; CTFd, orchestrator, and TCP gateway image workflows also
+passed on the immediately preceding published head. Event and Net currently
+define no GitHub Actions workflows.
+
 ## 2026-07-14 staggered-games feature addendum
 
 - **Engine implementation:** the locally merged staggered-games work contains three persistent game records, immutable/idempotent starts, database row locking, exact challenge mappings, independent visibility, lock/close cutoffs, separate user/team standings, an administrator audit table, and CSV/JSON exports. The plugin is copied into the CTFd 3.8.2 image.
