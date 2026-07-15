@@ -12,17 +12,20 @@ table) confirms a new combination works.
 
 | Repo | Role | Commit as of 2026-07-15 | Notes |
 | :--- | :--- | :--- | :--- |
-| `cei-labs-net` | Firewall/VLAN/DNS/DHCP design | `84df78a` | Design-complete, unvalidated on real hardware — see its own `docs/security-audit-status.md` |
-| `cei-labs-engine` | Swarm orchestration, CTFd, flags, isolation | `81da136` (+ uncommitted image-digest pinning, this session) | Most cross-repo-tested component; see `docs/validation-session-2026-07-14-15.md` |
-| `CEI-Labs-Wargames` | Challenge content (Bandit/Krypton/Natas) | `581544f` | Staggered-games content merged to `main` |
-| `cei-labs-event` | Event ops, tracker, this doc | `8f09078` | Holds the authoritative `TRACKER.md` |
+| `cei-labs-net` | Firewall/VLAN/DNS/DHCP design | `7e86d34` | Design-complete, unvalidated on real hardware — see its own `docs/security-audit-status.md` |
+| `cei-labs-engine` | Swarm orchestration, CTFd, flags, isolation | `777a05c` | Most cross-repo-tested component; see `docs/validation-session-2026-07-14-15.md` |
+| `CEI-Labs-Wargames` | Challenge content (Bandit/Krypton/Natas) | `a23fbad` | Staggered-games content merged to `main` |
+| `cei-labs-event` | Event ops, tracker, this doc | `02e5d04` | Holds the authoritative `TRACKER.md` |
 
-**Known gap, not yet resolved:** `cei-labs-engine`'s staggered-game admin
-plugin lives on `origin/feature/staggered-wargames`, not `main` — the
-commit above (`81da136`) does **not** include it, even though `CEI-Labs-Wargames`
-and `cei-labs-event` already have their halves of that feature merged.
-Any "verified compatible set" involving staggered games must currently
-reference the engine feature branch, not engine `main`.
+**Correction (2026-07-15, later same day):** this doc originally claimed
+`cei-labs-engine`'s staggered-game admin plugin was stuck on an unmerged
+`feature/staggered-wargames` branch. That was wrong — it was based on a
+local clone of `cei-labs-engine` that hadn't fetched `origin/main` in some
+time (last synced around `81da136`). The real `origin/main` already had
+the merge (`b177c99`, 2026-07-14) plus substantially more work on top of
+it (trusted-gateway rewrite, real-Swarm station validation, CTFd-dialect
+fixes) by the time this doc was first written. All commit hashes in the
+table above are now current as of a real `git fetch`.
 
 ## Verified compatible set (from the 2026-07-14/15 validation session)
 
@@ -39,8 +42,9 @@ The one combination with real integration-test evidence behind it
 This passed: deterministic lifecycle (cold 1/5/10/20, identical-create 20,
 relaunch 20), 42/42 trusted-gateway tenant isolation, restart persistence,
 encrypted backup + corruption rejection, isolated scratch restore. It did
-**not** cover: the staggered-games feature (engine half unmerged at this
-commit), 40-user/burst/soak load, or the full 59-challenge catalog under
+**not** cover: the staggered-games feature specifically (already merged by
+this commit, but not exercised by this particular test pass),
+40-user/burst/soak load, or the full 59-challenge catalog under
 concurrency (only 2/59 were deployed).
 
 ## Images
