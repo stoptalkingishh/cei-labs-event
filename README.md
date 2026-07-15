@@ -29,11 +29,11 @@ You shouldn't need those two for day-to-day tracking — everything below is the
 ### 2. Lab system (the engine running the CTF)
 - ✅ Each participant gets their own isolated lab environment — *stoptalkingishh*
 - ✅ Unique secret flags generated automatically per team — *stoptalkingishh*
-- 🔶 Fix fast-click/concurrent lab creation and reset behavior — *stoptalkingishh* (the first race was fixed, but a 10-persona rehearsal found additional relaunch and port-allocation races; a local fix passes 20-way tests and still needs real-Swarm verification)
-- 🔶 Make sure participants can't access each other's labs/data — *stoptalkingishh* (one open issue: Swarm's shared routing-mesh path currently permits internet egress and cross-instance reachability)
+- 🔶 Fix fast-click/concurrent lab creation and reset behavior — *stoptalkingishh* (the immutable candidate passed real-Swarm 1/5/10/20 cold waves plus 20-way same-key create/relaunch; the fresh 10-persona behavioral round remains pending)
+- 🔶 Make sure participants can't access each other's labs/data — *stoptalkingishh* (a trusted-gateway isolation candidate passes 95 Engine tests; native-Swarm egress/cross-team verification remains required)
 - ⬜ Set usage limits per participant (CPU, memory, time)
 - ⬜ Set up automatic health checks and alerts
-- ⬜ Set up backups for the lab system
+- 🔶 Set up backups for the lab system — *stoptalkingishh* (durable orchestrator state, protected backup, checksum/decryption verification, and RPO/RTO draft implemented; clean-station restore proof remains required)
 - ⬜ Build a simple staff dashboard (who's using what, right now)
 
 ### 3. CTF challenges/content
@@ -69,7 +69,7 @@ You shouldn't need those two for day-to-day tracking — everything below is the
 ### 8. Backups & monitoring
 - ⬜ Decide what data needs backing up
 - ⬜ Set up backups and test restoring from one
-- 🔶 Add host resource monitoring — *stoptalkingishh* (`btop` provisioning and a timestamped host/Docker evidence collector are implemented locally; station deployment and centralized dashboards/alerts remain open)
+- 🔶 Add host resource monitoring — *stoptalkingishh* (`btop` and the timestamped host/Docker collector were deployed and exercised during the deterministic station run; centralized dashboards/alerts remain open)
 
 ### 9. Participant experience
 - 🔶 Write a one-page "getting started" guide for participants — *stoptalkingishh*
