@@ -9,6 +9,11 @@ record.
 ## [Unreleased]
 
 ### Added
+- `docs/briefings/CEI-Labs-Wargames-Rehearsal-and-BC-Briefing-Guide.docx`:
+  event-planning guide centered on the existing Wargames learning objectives,
+  with the 16 July rehearsal sequence, 23 July BC briefing framework,
+  presenter responsibilities, logistics/DRAW/equipment checks, evaluation
+  criteria, and decisions requiring confirmation.
 - `docs/dependency-version-matrix.md`: cross-repo commit/image/port/
   network/secrets/startup-order matrix (`TRACKER.md` §1 P0 item). Records
   the one combination with real integration-test evidence behind it, and
