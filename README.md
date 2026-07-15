@@ -94,7 +94,7 @@ You shouldn't need those two for day-to-day tracking — everything below is the
 
 | Repo | Last commit | Date |
 |---|---|---|
-| cei-labs-engine | `2fe9338` | 2026-07-15 |
+| cei-labs-engine | `a1e85f0` | 2026-07-15 |
 | cei-labs-net | `1d1b70a` | 2026-07-15 |
 | CEI-Labs-Wargames | `581544f` | 2026-07-15 |
 
