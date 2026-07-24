@@ -20,10 +20,20 @@ This tracker covers the work required to make the CEI Labs cyber range stable, s
 
 ## Release gates
 
-The event is **GO** only when all of the following are true:
+> **Reconciled 2026-07-23:** the capacity/rehearsal numbers below were raised from 40 to
+> 80 participants. `cei-labs-net` has already committed to sizing the network for 80
+> participants — `docs/network-topology.md` sizes the player Wi-Fi VLAN as a `/22`
+> explicitly "for 80 participants," and `docs/access-point-sonicpoint-ace.md` plans AP
+> count and channel/room testing "with all 80 participants on Wi-Fi." A rehearsal or
+> performance budget still gated at 40 would only validate half the load the network side
+> is already designed for. See **Open decisions** below for the corresponding headcount
+> resolution. This does not change anything about whether 80 is actually achievable —
+> `access-point-sonicpoint-ace.md` itself is explicit that "80 active participants" is a
+> planning target, not yet an accepted/proven capacity figure, pending room layout, channel
+> plan, and a concurrent-client test.
 
 - [ ] **P0 — Owner: TBD:** All P0 tasks in this tracker are complete with test evidence.
-- [ ] **P0 — Owner: TBD:** A full 40-user rehearsal completes without cross-user access, lost flags, scoring corruption, or unrecovered service failure.
+- [ ] **P0 — Owner: TBD:** A full 80-user rehearsal completes without cross-user access, lost flags, scoring corruption, or unrecovered service failure.
 - [ ] **P0 — Owner: TBD:** Router, VLANs, wired network, and wireless network pass functional, isolation, capacity, and recovery tests at the venue.
 - [ ] **P0 — Owner: TBD:** Every lab has been solved from a clean participant account using only the published instructions.
 - [ ] **P0 — Owner: TBD:** Backup restoration, stack restart, and at least one failed-node recovery have been demonstrated.
@@ -31,6 +41,45 @@ The event is **GO** only when all of the following are true:
 - [ ] **P1 — Owner: TBD:** No unresolved critical/high security findings; any accepted risks have an owner and written mitigation.
 
 **None of the release gates are met.** This matches repo evidence — no load harness, no venue rehearsal artifacts, no signed-off runbook exist anywhere in the three repos.
+
+## Night handoff cross-reference (2026-07-23)
+
+> **Added 2026-07-23.** `cei-labs-engine` has `docs/HANDOFF-2026-07-23-night.md`, merged
+> into engine's `main` at commit `f16e7ef` (currently the tip of `main`). It lists 8
+> production-blocking issues found in a live session on the deployed stack (`192.168.1.173`)
+> that were **not previously tracked anywhere in this TRACKER**. As of engine's current
+> `main`, the handoff document itself says none of the 8 are started and there are no open
+> PRs against them — the document is a plan, not evidence of a fix. Verify current status
+> directly (`git log`/`gh pr list` in `cei-labs-engine`, or on the live host) before treating
+> any item below as resolved; do not assume this list is still accurate the day of.
+
+- [ ] **P0 — Owner: TBD:** Hint-wallet CTFd plugin ships backend-only (`/api/tiers`,
+  `/api/balance`, `/api/unlock`) with **no player-facing UI** — players cannot see or
+  unlock hints at all. (Handoff Issue #1.)
+- [ ] **P1 — Owner: TBD:** CTFd admin password and API token were **exposed in tool
+  output** during a prior session (redaction command failed); not known-abused, but
+  flagged for rotation. (Handoff §0 "Security follow-up.")
+- [ ] **P1 — Owner: TBD:** noVNC "Connect" fails for the attacker workstation — server
+  side is healthy; likely a stale (not force-recreated) attacker image and/or a
+  noVNC-vs-SSH password mismatch. (Handoff Issue #2.)
+- [ ] **P1 — Owner: TBD:** Krypton per-level files are written outside the SSH login
+  account's home directory, so a player who logs in and runs `ls` sees nothing where the
+  instructions say to look; the underlying per-level account isolation itself does work.
+  (Handoff Issue #3.)
+- [ ] **P2 — Owner: TBD:** Krypton levels never instruct the player to reconnect as the
+  next account after solving (Bandit does this; Krypton's content build never got it);
+  `krypton-02` is also missing its "log in as" line. (Handoff Issue #4.)
+- [ ] **P2 — Owner: TBD:** Standard Debian `/etc/motd` legal/copyright text is suppressed
+  at SSH login (`PrintMotd no`) on Bandit/Krypton targets, leaving only the custom banner.
+  (Handoff Issue #5.)
+- [ ] **P2 — Owner: TBD:** Bandit level 2→3 ("Spaces in Places") reportedly gives away the
+  answer instead of requiring the learner to construct shell quoting/escaping themselves.
+  (Handoff Issue #6.)
+- [ ] **P2 — Owner: TBD:** Per-level SSH banner ASCII art (Bandit/Krypton) is considered
+  too simple; scoped as a content upgrade, not a functional bug. (Handoff Issue #7.)
+- [ ] **P2 — Owner: TBD:** CTFd challenge-modal theming appeared unstyled in one report;
+  the handoff assesses this as most likely a stale browser tab/cache, not a real defect —
+  recheck with a hard refresh before investing further. (Handoff Issue #8.)
 
 ## 1. Architecture and repository maturity
 
@@ -98,7 +147,7 @@ The event is **GO** only when all of the following are true:
 > **✅ Verified 2026-07-12:** tracker's own baseline statement ("wireless access points are not configured") is confirmed accurate — no AP vendor config exists in any repo. Planning docs (`docs/network-topology.md`, `docs/verification-checklist.md`) specify SSID-to-VLAN mapping, mandatory WPA2/3-Personal, AP client isolation, and a "Day-Of Smoke Test" procedure, but this is a plan, not deployment evidence.
 
 - [ ] **P0 — Owner: TBD:** Survey the actual venue for coverage, interference, wall attenuation, channel use, power, mounting, and cable runs.
-- [ ] **P0 — Owner: TBD:** Size AP count and model for at least 40 simultaneous participants plus staff and multiple devices, with headroom—not merely for coverage.
+- [ ] **P0 — Owner: TBD:** Size AP count and model for at least 80 simultaneous participants plus staff and multiple devices, with headroom—not merely for coverage. — matches `cei-labs-net`'s `docs/access-point-sonicpoint-ace.md`, which plans the two-AP inventory against "all 80 participants on Wi-Fi" but explicitly does not yet treat 80 as an accepted capacity figure.
 - [ ] **P0 — Owner: TBD:** Configure participant and staff SSIDs mapped to the correct VLANs. Protect AP management on the management VLAN and disable direct participant access to it. — SSID-to-VLAN mapping is specified on paper only.
 - [ ] **P0 — Owner: TBD:** Enable client isolation where compatible with the lab design and verify participants cannot communicate directly at Layer 2. — required on paper; not verified.
 - [ ] **P0 — Owner: TBD:** Plan 2.4/5/6 GHz bands, channel width, non-overlapping channels, transmit power, minimum data rates, and roaming. Avoid automatic settings unless validated on site.
@@ -109,12 +158,20 @@ The event is **GO** only when all of the following are true:
 
 ## 6. Capacity, stress, endurance, and failure testing
 
-> **⚠ Section-wide: active 2026-07-12/15.** The direct orchestrator harness has a clean retained real-Swarm run through 20-way create/relaunch. A fresh ten-persona diagnostic completed in four-slot waves and drove two deployed fixes; the final retest passed. It is not a ten-concurrent acceptance run, only 2 of 59 challenges were deployed, and no 40/burst/soak test exists yet.
+> **⚠ Section-wide: active 2026-07-12/15.** The direct orchestrator harness has a clean retained real-Swarm run through 20-way create/relaunch. A fresh ten-persona diagnostic completed in four-slot waves and drove two deployed fixes; the final retest passed. It is not a ten-concurrent acceptance run, only 2 of 59 challenges were deployed, and no 40/80/burst/soak test exists yet.
+>
+> **2026-07-23:** the performance budget and staged-test targets below were raised from a
+> 40-participant floor to 80, to match `cei-labs-net`'s committed Wi-Fi/AP sizing (see
+> Release gates note above). The existing 3/10/20/40 staging is still a reasonable ramp; it
+> now needs an added 80-participant stage to actually reach the real target, and the prior
+> "burst capacity (target: 50–60)" figure is stale — 50–60 sits *below* the 80-participant
+> floor. No sourced replacement burst number exists yet in any repo, so that figure is left
+> as an explicitly open TBD below rather than inventing a new one.
 
-- [ ] **P0 — Owner: TBD:** Define a measurable performance budget: 40 concurrent participants minimum, expected lab mix, acceptable login/start time, command latency, error rate, recovery time, and infrastructure headroom.
-- [~] **P0 — Owner: stoptalkingishh:** ⚠ Build a repeatable load harness that models real journeys: register/login, join team if applicable, start lab, SSH/browse, run representative commands, submit flags, reset, disconnect, reconnect, and finish. — orchestrator-direct load harness exists (staged 3/10/20/40/burst-60, race probes); persona framework covers the full CTFd-mediated participant journey. No single harness does both yet.
+- [ ] **P0 — Owner: TBD:** Define a measurable performance budget: 80 concurrent participants minimum, expected lab mix, acceptable login/start time, command latency, error rate, recovery time, and infrastructure headroom.
+- [~] **P0 — Owner: stoptalkingishh:** ⚠ Build a repeatable load harness that models real journeys: register/login, join team if applicable, start lab, SSH/browse, run representative commands, submit flags, reset, disconnect, reconnect, and finish. — orchestrator-direct load harness exists (staged 3/10/20/40/burst-60, race probes); persona framework covers the full CTFd-mediated participant journey. No single harness does both yet, and neither reaches an 80-participant stage yet.
 - [x] **P0 — Owner: stoptalkingishh:** ✅ Use synthetic clients/agents with isolated test accounts and test-only flags. Do not rely solely on paid AI agents; use deterministic scripts for load and reserve human/AI agents for behavioral variation and usability. — The deterministic orchestrator harness covers load; ten fresh-account personas covered behavioral, usability, authorization, and malformed-action variation in bounded waves without retaining credentials, tokens, flags, or generated access values.
-- [~] **P0 — Owner: stoptalkingishh:** ⚠ Run staged tests at 3, 10, 20, 40, and burst capacity (target: 50–60) while recording node, container, database, network, DNS, DHCP, firewall, AP, and application metrics. — 2026-07-14 retained host/container/service/network/Docker-event telemetry for 1/5/10/20 and 20-way race stages. 40/burst/soak, DB metrics, and venue network/AP telemetry remain missing.
+- [~] **P0 — Owner: stoptalkingishh:** ⚠ Run staged tests at 3, 10, 20, 40, 80, and burst capacity (target: TBD, must exceed 80 — the previous 50–60 figure predates the 80-participant floor and is not a valid burst target on its own) while recording node, container, database, network, DNS, DHCP, firewall, AP, and application metrics. — 2026-07-14 retained host/container/service/network/Docker-event telemetry for 1/5/10/20 and 20-way race stages. 40/80/burst/soak, DB metrics, and venue network/AP telemetry remain missing.
 - [ ] **P0 — Owner: TBD:** Test the worst-case lab mix, including concurrent Web Exploitation sessions that require both attacker and LAMP containers. Capacity planning must count containers/services per session, not just users. — only `single-target` tested so far; no `target-attacker` range load-tested yet.
 - [ ] **P0 — Owner: TBD:** Stress simultaneous event moments: all users log in, start labs, reset labs, submit flags, and reconnect at once.
 - [ ] **P0 — Owner: TBD:** Stress staggered-stage operations under real CTFd traffic: start Krypton while Bandit remains active, hide/show one scoreboard, lock during a solve burst, then start Natas while scoreboards are polled. Run 10 users, planned attendance, and +50% headroom. Accept only immutable single start timestamps, no cross-game solve leakage, no post-lock score movement, and no missing in-window solve.
@@ -178,14 +235,14 @@ The event is **GO** only when all of the following are true:
 
 - [ ] **P1 — Owner: TBD:** Write a short decision record comparing local on-site hosting, VPS/cloud, and any government platform option against cost, eligibility, public/civilian reachability, approval lead time, bandwidth, latency, data handling, support, and failure modes.
 - [ ] **P1 — Owner: TBD:** Treat Platform One as a research item, not an event dependency, until eligibility, onboarding, cost, authorization, public access, container/workload support, and schedule are confirmed directly with its official program contacts.
-- [ ] **P1 — Owner: TBD:** Benchmark any remote hosting candidate from the actual venue with 40-user-equivalent traffic; include WAN failure and rate/egress cost assumptions.
+- [ ] **P1 — Owner: TBD:** Benchmark any remote hosting candidate from the actual venue with 80-user-equivalent traffic; include WAN failure and rate/egress cost assumptions.
 - [ ] **P1 — Owner: TBD:** Keep a local/offline-capable event plan even if a hosted option is selected, unless the accepted risk explicitly states otherwise.
 - [ ] **P2 — Owner: TBD:** Estimate compute needs from measured peak CPU, memory, storage I/O, network, and container count—not from user count alone—and document minimum/recommended hardware.
 
 ## 12. Final-week checklist
 
 - [ ] **P0 — Owner: TBD:** Freeze the release candidate; document and approve every subsequent change.
-- [ ] **P0 — Owner: TBD:** Rebuild/deploy from pinned artifacts and complete smoke, isolation, scoring, backup, restore, and 40-user acceptance tests.
+- [ ] **P0 — Owner: TBD:** Rebuild/deploy from pinned artifacts and complete smoke, isolation, scoring, backup, restore, and 80-user acceptance tests.
 - [ ] **P0 — Owner: TBD:** Rotate event credentials, verify certificates and expiration dates, and securely distribute staff access.
 - [ ] **P0 — Owner: TBD:** Export tested configuration backups for all hosts and network devices to two protected locations.
 - [ ] **P0 — Owner: TBD:** Confirm participant roster/accounts, staff coverage, contact tree, venue access, power, cooling, cabling, spares, and printed/offline runbooks.
@@ -218,7 +275,7 @@ The event is **GO** only when all of the following are true:
 | Risk | Likelihood | Impact | Mitigation/contingency | Trigger | Owner | Status |
 |---|---|---|---|---|---|---|
 | Router/AP configuration is incomplete | High | Critical | Configure early; retain backups and preconfigured spares; complete venue rehearsal | Network acceptance tests miss deadline | TBD | Open |
-| Capacity at 40+ users is unknown | High | Critical | Deterministic load harness, staged load, burst and soak tests, measured hardware sizing | 40-user gate fails or headroom is below target | TBD | Open |
+| Capacity at 80+ users is unknown | High | Critical | Deterministic load harness, staged load, burst and soak tests, measured hardware sizing | 80-user gate fails or headroom is below target | TBD | Open |
 | Stage started at wrong time or more than once | Medium | Critical | Two-person authorization, synchronized UTC clocks, row locking, immutable/idempotent start, audit review | Duplicate audit mutation or displayed timestamp differs from authorized start | TBD | Open until deployed concurrency rehearsal |
 | Challenge mapped to the wrong game or missing | Medium | High | Static manifest validator, exact category mapping, required 35/8/16 count, block start on mismatch, freeze mapping after start | Sync count mismatch or cross-game score appears | TBD | Open until content-import rehearsal |
 | Scoreboard moves after lock or hide changes results | Low | Critical | Inclusive cutoff tests, preserved raw solves, independent visibility state, before/after exports and reconciliation | Any post-cutoff solve changes standings or hide/show changes totals | TBD | Open until multi-user rehearsal |
@@ -246,7 +303,8 @@ The event is **GO** only when all of the following are true:
 
 - [x] ✅ Docker Swarm or K3s is the production orchestration platform? — **Resolved: Swarm**, per 2026-07-12 audit (see item 1 above).
 - [ ] Individual accounts or teams, and are flags unique per user or per team? — leaning teams (dynamic flags are per-team in the current implementation), but not documented as a final decision.
-- [ ] Exact event duration, participant count, device count, and expected lab mix?
+- [x] ✅ Participant count? — **Resolved (by network-side commitment, 2026-07-23): plan for 80.** `cei-labs-net` has already committed to sizing the venue network and Wi-Fi for 80 participants (`docs/network-topology.md`'s VLAN 30 `/22` subnet is explicitly justified "for 80 participants"; `docs/access-point-sonicpoint-ace.md` sizes the two-AP inventory against "all 80 participants on Wi-Fi"). This tracker's capacity/rehearsal gates now match that number (see Release gates). This closes the planning number, not full readiness at that number: `access-point-sonicpoint-ace.md` is explicit that 80 is a planning target, not an accepted/proven Wi-Fi capacity figure, until room layout, channel plan, and a concurrent-client test pass — that residual risk is tracked separately in §5/§6 and the risk register, not here.
+- [ ] Exact event duration, device count, and expected lab mix? — device count is a downstream multiplier of the 80-participant planning number above (each participant may bring phone + laptop + VM NICs, per `network-topology.md`), not yet pinned to an exact figure.
 - [ ] Required Internet access versus fully local/offline operation?
 - [ ] Final venue, floor plan, ISP characteristics, available power, and wired drops?
 - [ ] Hardware inventory and spare/replacement equipment?
