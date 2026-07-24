@@ -79,6 +79,39 @@ reporter's specific setup -- that would need live inspection of the
 running attacker/target containers and their networks, which wasn't
 done here per the docs-only scope of this pass.
 
+## Update 2026-07-24: the documented "(direct link)" fallback was tried live and did not work either
+
+Following this doc's own suggested workaround, the reporter tried the
+`novnc_url` direct-link fallback (`https://192.168.1.173:<novnc_port>/vnc.html`,
+reached via the "Open Attacker Workstation (direct link)" button
+described above) against the live instance on `192.168.1.173`. It did
+not work.
+
+This is a new, unverified data point, recorded as-is -- no live
+debugging was done in this pass (no container/network/port inspection
+on `192.168.1.173`, no check of what error the browser actually showed
+for that URL). It's not yet known whether the failure is:
+
+- the same DNS-independent fallback path being broken for an unrelated
+  reason (e.g. the cert/TLS handshake itself, the port not actually
+  being published/reachable from outside the swarm, `tcp-gateway` not
+  forwarding correctly), or
+- a difference between this doc's read of the source (`instance_types.py`,
+  `challenge-launch.js`) and what's actually deployed/running on
+  `192.168.1.173` right now (e.g. an older image predating this
+  fallback -- `banner-art-not-deployed-gap-2026-07-24.md` already
+  documented a separate instance of the running box lagging behind
+  `main`), or
+- something specific to the reporter's own network path to
+  `192.168.1.173` unrelated to this stack at all.
+
+None of these were distinguished in this pass. Closing this now
+additionally needs live reproduction against the actual running
+instance: what URL was opened, what error/behavior the browser showed
+(connection refused vs. cert error vs. blank page vs. something else),
+and whether `access.novnc_url` as returned by the orchestrator API for
+that specific instance actually matches the URL that was tried.
+
 ## What closing this needs
 
 - Confirm which of the two dependencies above is actually being hit:
