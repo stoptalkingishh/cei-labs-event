@@ -124,3 +124,26 @@ wrong for a real event's scoring, and this is large enough (orchestrator
 wallet model, CTFd scoring integration, Wargames content-generation
 changes) that it belongs as its own scoped implementation, not a
 same-session fix.
+
+## Update 2026-07-25: reproduced live by an actual player on the fresh 192.168.1.173 stand-up
+
+Confirmed firsthand, playing against the freshly wiped-and-redeployed
+environment (`cei-labs-engine`/`CEI-Labs-Wargames` both on latest `main`,
+including today's wargame-stages crash fix): completed the first
+challenge, wallet balance still reads 0 credits afterward. This is the
+`solve_hook.py`-never-existed root cause above, now confirmed against a
+completely clean database rather than possibly-stale state -- rules out
+"maybe it just needed a fresh DB" as an explanation.
+
+Also re-confirmed live: the described 2-challenge unlock window doesn't
+exist in any form right now -- there's no solve-order/adjacency check
+anywhere in `hint-wallet/routes.py` or `orchestrator/app/wallet.py`, so
+this isn't a case of the window being present but miscalibrated; it's
+simply not built yet, same as the crediting mechanism.
+
+This PR is now the tracking issue for an actual implementation attempt.
+The blocker for starting that attempt is unchanged from above: the two
+windowing examples in "Intended design" still don't obviously resolve to
+one rule, and shipping a guess here would put wrong data in front of
+players mid-event. That confirmation is needed before code changes start,
+not something to resolve by guessing under time pressure.
