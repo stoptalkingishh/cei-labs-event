@@ -125,7 +125,7 @@ containers for flags.
 Numbers pulled live from the CTFd DB on `192.168.1.150` at event close by the
 orchestrating agent. The operator and agents were actively resolving per-team
 account/flag issues throughout (see the communications recap in
-`docs/event-communications-2026-08-06.md`).
+`event-communications-2026-08-06.md`).
 
 ## 5. What was sacrificed to make the event happen (network)
 
@@ -250,11 +250,11 @@ node-exporter/Prometheus scrape across the Swarm for the full event window.
 
 ## 9. Referenced logs
 
-- `WORK_LOGS/2026-08-05_SERVER_LAN_OPNSENSE_CHECK.md` ΓÇö OPNsense path saga.
-- `WORK_LOGS/2026-08-06_SWARM_NEW_SUBNET.md` ΓÇö re-home to 192.168.1.0/24.
-- `WORK_LOGS/2026-08-06_CTFD_RESET_ADMIN_GAMES_USERS.md` ΓÇö reset, hint-cache
+- `../../WORK_LOGS/2026-08-05_SERVER_LAN_OPNSENSE_CHECK.md` ΓÇö OPNsense path saga.
+- `../../WORK_LOGS/2026-08-06_SWARM_NEW_SUBNET.md` ΓÇö re-home to 192.168.1.0/24.
+- `../../WORK_LOGS/2026-08-06_CTFD_RESET_ADMIN_GAMES_USERS.md` ΓÇö reset, hint-cache
   fix, Workhorse Krypton/Bandit fixes.
-- `WORK_LOGS/2026-08-06_SERVER_RESOURCE_USAGE_AND_SCORE_BACKUP.md` ΓÇö resource
+- `../../WORK_LOGS/2026-08-06_SERVER_RESOURCE_USAGE_AND_SCORE_BACKUP.md` ΓÇö resource
   capacity + idle state and the CTFd score dump.
 
 ## 10. Lessons Learned
@@ -310,6 +310,6 @@ To recover the full conversation history, the user would need to:
 3. Upload or share the exports via the channel
 
 Note: All Codex agent conversations (Codex 5.5, Codex 5.6 Luna) occurred in the
-CEI-LABS Buzz channel and are fully captured in `docs/event-communications-2026-08-06.md`.
+CEI-LABS Buzz channel and are fully captured in `event-communications-2026-08-06.md`.
 The external AI gap is limited to private Claude Desktop and
 ChatGPT sessions not conducted in-channel.

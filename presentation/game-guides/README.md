@@ -47,7 +47,7 @@ re-checked rather than trusted:
 | Track narrative and beats | `CEI-Labs-Wargames/docs/wargame-story.md`, `wargame-themes.md` |
 | Launch controls, Start Here steps | `CEI-Labs-Wargames/challenges/*-start-here/challenge.yml` |
 | AI Copilot track (6 challenges) | `CEI-Labs-Wargames/scripts/build_agent.py` |
-| Staging and scoring rules | `../PRESENTATION-BRIEF.md` |
+| Staging and scoring rules | `../../docs/planning/PRESENTATION-BRIEF.md` |
 
 Accent colours are each track's own banner palette from `wargame-themes.md`
 (Bandit warm/ember, Krypton cool/cyan, Natas magenta/teal). AI Copilot Setup has

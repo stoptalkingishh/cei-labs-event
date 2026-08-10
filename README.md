@@ -1,18 +1,26 @@
-# CEI Labs — Event Readiness
+# CEI Labs — Event Archive (2026-08-06)
 
-Simple task list for the admin team: what's done, what's in progress, and what's still needed before the CEI Labs live CTF event.
+Record of the CEI Labs live CTF event that ran on 2026-08-06, including the planning and prep work, the event-day record, and the after-action review. The repo is arranged by lifecycle stage:
 
-- **[TRACKER.md](TRACKER.md)** — the detailed engineering checklist (13 sections, technical evidence, risk register).
-- **[VERIFICATION.md](VERIFICATION.md)** — the proof behind that checklist (files/commits inspected).
-- **[STAGGERED-GAMES-PLAN.md](STAGGERED-GAMES-PLAN.md)** — approved behavior for independently starting Bandit, Krypton, and Natas.
-- **[STAGGERED-GAMES-RUNBOOK.md](STAGGERED-GAMES-RUNBOOK.md)** — administrator rehearsal and event-day controls.
-- **[PRESENTATION-BRIEF.md](PRESENTATION-BRIEF.md)** — source material and slide outline for the presentation team.
+- **`docs/planning/`** — pre-event engineering and operations work.
+  - **[TRACKER.md](docs/planning/TRACKER.md)** — the detailed engineering checklist (13 sections, technical evidence, risk register).
+  - **[VERIFICATION.md](docs/planning/VERIFICATION.md)** — the proof behind that checklist (files/commits inspected).
+  - **[STAGGERED-GAMES-PLAN.md](docs/planning/STAGGERED-GAMES-PLAN.md)** — approved behavior for independently starting Bandit, Krypton, and Natas.
+  - **[STAGGERED-GAMES-RUNBOOK.md](docs/planning/STAGGERED-GAMES-RUNBOOK.md)** — administrator rehearsal and event-day controls.
+  - **[PRESENTATION-BRIEF.md](docs/planning/PRESENTATION-BRIEF.md)** — source material and slide outline for the presentation team.
+- **`docs/event/`** — the event-day and post-event record.
+  - **[AAR-2026-08-06.md](docs/event/AAR-2026-08-06.md)** — after-action review for the live event.
+  - **[event-recap-2026-08-06.md](docs/event/event-recap-2026-08-06.md)** — event-end-state summary.
+  - **[event-communications-2026-08-06.md](docs/event/event-communications-2026-08-06.md)** — channel communications recap.
+  - **[deployment-run-2026-07-24.md](docs/event/deployment-run-2026-07-24.md)** — known-good deployment run record.
+- **`WORK_LOGS/`** — raw operator logs from the 2026-08-05/06 work sessions.
+- **`presentation/`** — kickoff deck, day-of brief, and per-game "how to play" decks.
 
-You shouldn't need those two for day-to-day tracking — everything below is the plain-language version. If a task needs more detail, its section number matches `TRACKER.md`.
+If a task needs more detail, its section number matches `docs/planning/TRACKER.md`.
 
 ## Bottom line
 
-**Not ready yet.** Most of the software/platform work is on track, but almost nothing on the event-logistics side (network hardware, WiFi, staffing, rehearsal, backups) has started.
+**The event ran on 2026-08-06.** The task list below is the pre-event readiness tracker as it stood going into the event; the event-day and post-event record lives in `docs/event/` and `WORK_LOGS/`.
 
 ## Task list
 
