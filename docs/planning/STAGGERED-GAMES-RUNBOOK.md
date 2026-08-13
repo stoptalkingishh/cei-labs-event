@@ -1,5 +1,10 @@
 # Staggered games administrator runbook
 
+> **Historical snapshot:** This runbook records the 2026-08-06 event's planned
+> controls and includes obsolete catalog counts. For the current reusable
+> runbook, use
+> [`CEI-Labs-Wargames/docs/staged-game-operations.md`](https://github.com/stoptalkingishh/CEI-Labs-Wargames/blob/master/docs/staged-game-operations.md).
+
 ## Roles
 
 - **Event lead:** decides when each game starts, whether an earlier scoreboard remains open, and whether an incident warrants delay or cutoff adjustment.
