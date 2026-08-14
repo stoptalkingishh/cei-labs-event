@@ -3,7 +3,7 @@
 > **Historical snapshot:** This document records the plan for the 2026-08-06
 > event and includes obsolete catalog counts and schedule assumptions. For
 > current reusable stage policy, use
-> [`CEI-Labs-Wargames/docs/staged-game-operations.md`](https://github.com/stoptalkingishh/CEI-Labs-Wargames/blob/master/docs/staged-game-operations.md).
+> [`CEI-Labs-Wargames/docs/staged-game-operations.md`](https://github.com/stoptalkingishh/CEI-Labs-Wargames/blob/main/docs/staged-game-operations.md).
 
 ## Event format
 

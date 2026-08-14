@@ -3,7 +3,7 @@
 > **Historical exports:** These decks were built for the 2026-08-06 event and
 > include an older Natas scope. Do not use them for a current event. The current
 > reusable guide contract is
-> [`CEI-Labs-Wargames/presentation/game-guide-brief.md`](https://github.com/stoptalkingishh/CEI-Labs-Wargames/blob/master/presentation/game-guide-brief.md).
+> [`CEI-Labs-Wargames/presentation/game-guide-brief.md`](https://github.com/stoptalkingishh/CEI-Labs-Wargames/blob/main/presentation/game-guide-brief.md).
 
 One "how to play" deck per game, for delivery to participants before each game
 is released. Each ships in two variants with **identical copy and speaker

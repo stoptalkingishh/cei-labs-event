@@ -3,7 +3,7 @@
 > **Historical snapshot:** This runbook records the 2026-08-06 event's planned
 > controls and includes obsolete catalog counts. For the current reusable
 > runbook, use
-> [`CEI-Labs-Wargames/docs/staged-game-operations.md`](https://github.com/stoptalkingishh/CEI-Labs-Wargames/blob/master/docs/staged-game-operations.md).
+> [`CEI-Labs-Wargames/docs/staged-game-operations.md`](https://github.com/stoptalkingishh/CEI-Labs-Wargames/blob/main/docs/staged-game-operations.md).
 
 ## Roles
 

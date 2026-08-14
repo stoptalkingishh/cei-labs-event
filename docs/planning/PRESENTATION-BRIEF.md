@@ -3,7 +3,7 @@
 > **Historical snapshot:** This outline was written for the 2026-08-06 event
 > and its former catalog scope. Current reusable participant presentation source
 > is maintained in
-> [`CEI-Labs-Wargames/presentation/`](https://github.com/stoptalkingishh/CEI-Labs-Wargames/tree/master/presentation).
+> [`CEI-Labs-Wargames/presentation/`](https://github.com/stoptalkingishh/CEI-Labs-Wargames/tree/main/presentation).
 
 ## Core message
 

@@ -17,7 +17,7 @@ owned by the component repositories.
 
 | Gate | Owner | Status | Evidence required |
 | --- | --- | --- | --- |
-| Current Wargames catalog builds and validates | Wargames | Open | Generated catalog plus `validate_game_stages.py` output from the release revision. |
+| Current Wargames catalog builds and validates | Wargames | Open | Generated catalog plus [`validate_game_stages.py`](https://github.com/stoptalkingishh/CEI-Labs-Wargames/blob/main/scripts/validate_game_stages.py) output from the release revision. |
 | Stage mapping and independent starts work in deployed CTFd | Engine + Wargames | Open | Authenticated deployed smoke test, audit entries, and mapping reconciliation. |
 | Natas attacker workstation and target isolation are release-ready | Engine + Wargames | Open | Published immutable images, launch smoke test, and isolation evidence. |
 | Stage lock/export/reconciliation works under concurrent activity | Engine | Open | Multi-account rehearsal with raw solves and CSV/JSON reconciliation. |
