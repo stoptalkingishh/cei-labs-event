@@ -2,7 +2,7 @@
 
 > **Historical snapshot:** This brief supports the 2026-08-06 event deck and
 > may not match the current catalog or launch flow. Use the current source in
-> [`CEI-Labs-Wargames/presentation/kickoff-brief.md`](https://github.com/stoptalkingishh/CEI-Labs-Wargames/blob/master/presentation/kickoff-brief.md)
+> [`CEI-Labs-Wargames/presentation/kickoff-brief.md`](https://github.com/stoptalkingishh/CEI-Labs-Wargames/blob/main/presentation/kickoff-brief.md)
 > for a new event.
 
 Source content and speaker notes for the opening presentation given to
