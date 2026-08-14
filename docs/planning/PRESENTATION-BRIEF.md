@@ -1,5 +1,10 @@
 # Presentation brief: CEI Labs staggered wargames
 
+> **Historical snapshot:** This outline was written for the 2026-08-06 event
+> and its former catalog scope. Current reusable participant presentation source
+> is maintained in
+> [`CEI-Labs-Wargames/presentation/`](https://github.com/stoptalkingishh/CEI-Labs-Wargames/tree/main/presentation).
+
 ## Core message
 
 CEI Labs is one event with three independently released games—not three disconnected events and not an automatic level transition. Everyone starts Bandit, Krypton, and Natas at each game's **Start Here** challenge when the administrator releases it. Later games can open while earlier games remain playable.

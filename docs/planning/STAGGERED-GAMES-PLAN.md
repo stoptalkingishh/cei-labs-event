@@ -1,5 +1,10 @@
 # CEI Labs Staggered Games Plan
 
+> **Historical snapshot:** This document records the plan for the 2026-08-06
+> event and includes obsolete catalog counts and schedule assumptions. For
+> current reusable stage policy, use
+> [`CEI-Labs-Wargames/docs/staged-game-operations.md`](https://github.com/stoptalkingishh/CEI-Labs-Wargames/blob/main/docs/staged-game-operations.md).
+
 ## Event format
 
 The event contains three independently started games:
